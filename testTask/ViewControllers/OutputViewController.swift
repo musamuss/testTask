@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OutputViewController.swift
 //  testTask
 //
 //  Created by admin on 24/09/2019.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class OutputViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .red
     }
 
 
 }
-
