@@ -13,7 +13,7 @@ class NetworkService {
     
 // MARK: - построение запроса данных по  url
     
-    func request(searchTerm: String,completion: @escaping (Data?, Error?) -> Void){
+    func request(searchTerm: String,completion: @escaping (Data?, Error?) -> Void) {
            //let parameters = self.prepareParametrs(searchTerm: searchTerm)
            let url = self.url()
            var request = URLRequest(url:url)

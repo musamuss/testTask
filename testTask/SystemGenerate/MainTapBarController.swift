@@ -14,20 +14,22 @@ class MainTapBarController: UITabBarController {
     let firstRun = UserDefaults.standard.bool(forKey: "firstRun") as Bool
     override func viewDidLoad() {
         super.viewDidLoad()
+        var sessionKey: String?
 //        if firstRun {
-            let network = NetworkService()
-            network.request(searchTerm: "a=new_session") { (data, error) in
-                let product = self.decodeJSON(type: Session.self, from: data)
-                print("data \(product)")
-                print("error \(error)")
-                
-            }
+//
 //            print("kek")
 //        } else {
-//            runFirst() //will only run once
-//        }
+//           runFirst() //will only run once
+        let network = NetworkService()
+            network.request(searchTerm: "a=new_session") { (data, error) in
+            let product = self.decodeJSON(type: Session.self, from: data)
+                sessionKey = product?.data.session
+            //print("data \(product)")
+            //print("error \(error)")
+            print("blaya\(sessionKey)")
+        }
         
-        //view.backgroundColor = .red
+ 
         viewControllers = [generateNavigationController(rootViewController: OutputViewController(), title: "Output"),generateNavigationController(rootViewController: AddViewController(), title: "Add"),generateNavigationController(rootViewController: ViewFullViewController(), title: "ViewFull")]
         
     }
@@ -44,7 +46,7 @@ class MainTapBarController: UITabBarController {
         print("FIRST RUN!")
         UserDefaults.standard.set(true, forKey: "firstRun")
     }
-    
+  //MARK: -- декод JSON
    func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
         let decoder = JSONDecoder()
         guard let data = from else { return nil }
@@ -57,8 +59,6 @@ class MainTapBarController: UITabBarController {
             return nil
         }
     }
-    
-    
     
     
 }
