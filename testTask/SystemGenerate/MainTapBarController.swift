@@ -14,22 +14,19 @@ class MainTapBarController: UITabBarController {
     let firstRun = UserDefaults.standard.bool(forKey: "firstRun") as Bool
     override func viewDidLoad() {
         super.viewDidLoad()
-        var sessionKey: String?
-//        if firstRun {
-//
-//            print("kek")
-//        } else {
-//           runFirst() //will only run once
+        var sessionKey: String?{
+            willSet(sessionKey) {
+            print("session Key \(sessionKey)")
+            }
+        }
         let network = NetworkService()
             network.request(searchTerm: "a=new_session") { (data, error) in
             let product = self.decodeJSON(type: Session.self, from: data)
-                sessionKey = product?.data.session
+            sessionKey = product?.data.session
             //print("data \(product)")
             //print("error \(error)")
-            print("blaya\(sessionKey)")
         }
         
- 
         viewControllers = [generateNavigationController(rootViewController: OutputViewController(), title: "Output"),generateNavigationController(rootViewController: AddViewController(), title: "Add"),generateNavigationController(rootViewController: ViewFullViewController(), title: "ViewFull")]
         
     }

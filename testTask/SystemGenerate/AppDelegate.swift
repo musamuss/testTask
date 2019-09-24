@@ -14,7 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        if UserDefaults.standard.bool(forKey: "isFirstLaunch") {
+
+            UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+            UserDefaults.standard.synchronize()
+           }
+        let isFirstLaunch = (UserDefaults.standard.value(forKey: "isFirstLaunch") as? Bool)!
+        if isFirstLaunch {
+          var sessionKey: String?{
+                  willSet(sessionKey) {
+                  print("session Key \(sessionKey)")
+                  }
+              }
+        }
         return true
     }
 
