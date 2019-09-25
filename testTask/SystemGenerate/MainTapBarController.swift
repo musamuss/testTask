@@ -10,39 +10,39 @@
 import UIKit
 
 class MainTapBarController: UITabBarController {
-
-    let firstRun = UserDefaults.standard.bool(forKey: "firstRun") as Bool
+    var sessionKey: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        var sessionKey: String?{
-            willSet(sessionKey) {
-            print("session Key \(sessionKey)")
-            }
-        }
+        
         let network = NetworkService()
             network.request(searchTerm: "a=new_session") { (data, error) in
             let product = self.decodeJSON(type: Session.self, from: data)
-            sessionKey = product?.data.session
+                self.sessionKey = product?.data.session
             //print("data \(product)")
             //print("error \(error)")
+                print(self.sessionKey)
+                let defaults = UserDefaults.standard
+                defaults.set(self.sessionKey, forKey: "myKey")
+                defaults.synchronize()
+//MARK: - вызов значения из любой части программы
+//                let token = UserDefaults.standard.object(forKey: "myKey")
+//                print(token)
         }
         
         viewControllers = [generateNavigationController(rootViewController: OutputViewController(), title: "Output"),generateNavigationController(rootViewController: AddViewController(), title: "Add"),generateNavigationController(rootViewController: ViewFullViewController(), title: "ViewFull")]
         
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationController = segue.destination as? OutputViewController else { return }
+        guard let firstNum = self.sessionKey else { return }
+        destinationController.toPass = firstNum
+    }
     private func generateNavigationController(rootViewController:UIViewController,title:String)->UIViewController{
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.title = title
         return navigationVC
     }
     
-//MARK: -- создание новой сессии устройства, для каждого пользователя
-   private func runFirst() {
-    
-        print("FIRST RUN!")
-        UserDefaults.standard.set(true, forKey: "firstRun")
-    }
   //MARK: -- декод JSON
    func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
         let decoder = JSONDecoder()
@@ -56,6 +56,6 @@ class MainTapBarController: UITabBarController {
             return nil
         }
     }
-    
-    
+  
+
 }
