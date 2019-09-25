@@ -22,7 +22,7 @@ class NetworkService {
            request.httpBody =  searchTerm.data(using: .utf8)
            let task = createDataTask(from: request, comletion: completion)
            task.resume()
-        print(url)
+       // print(url)
        }
     
     

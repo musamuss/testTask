@@ -1,5 +1,5 @@
 //
-//  Results.swift
+//  SessionResult.swift
 //  testTask
 //
 //  Created by admin on 24/09/2019.

@@ -17,7 +17,9 @@
 		8406D0E9233A371100035B9C /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406D0E8233A371100035B9C /* OutputViewController.swift */; };
 		8406D0EC233A379000035B9C /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406D0EB233A379000035B9C /* AddViewController.swift */; };
 		8406D0EE233A37C600035B9C /* ViewFullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406D0ED233A37C600035B9C /* ViewFullViewController.swift */; };
-		8406D0F1233A486900035B9C /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406D0F0233A486900035B9C /* Results.swift */; };
+		8406D0F1233A486900035B9C /* SessionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406D0F0233A486900035B9C /* SessionResult.swift */; };
+		840C9827233BDE6500363ACF /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C9826233BDE6500363ACF /* SessionModel.swift */; };
+		840C9829233BE78C00363ACF /* SessionAddModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C9828233BE78C00363ACF /* SessionAddModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +35,9 @@
 		8406D0E8233A371100035B9C /* OutputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
 		8406D0EB233A379000035B9C /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		8406D0ED233A37C600035B9C /* ViewFullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFullViewController.swift; sourceTree = "<group>"; };
-		8406D0F0233A486900035B9C /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
+		8406D0F0233A486900035B9C /* SessionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResult.swift; sourceTree = "<group>"; };
+		840C9826233BDE6500363ACF /* SessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
+		840C9828233BE78C00363ACF /* SessionAddModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAddModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +84,10 @@
 		8406D0E7233A36E700035B9C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8406D0F0233A486900035B9C /* Results.swift */,
+				8406D0F0233A486900035B9C /* SessionResult.swift */,
+				840C9826233BDE6500363ACF /* SessionModel.swift */,
 				8406D0E3233A348500035B9C /* NetworkService.swift */,
+				840C9828233BE78C00363ACF /* SessionAddModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 			files = (
 				8406D0E9233A371100035B9C /* OutputViewController.swift in Sources */,
 				8406D0EC233A379000035B9C /* AddViewController.swift in Sources */,
-				8406D0F1233A486900035B9C /* Results.swift in Sources */,
+				840C9827233BDE6500363ACF /* SessionModel.swift in Sources */,
+				8406D0F1233A486900035B9C /* SessionResult.swift in Sources */,
+				840C9829233BE78C00363ACF /* SessionAddModel.swift in Sources */,
 				8406D0D0233A318C00035B9C /* AppDelegate.swift in Sources */,
 				8406D0EE233A37C600035B9C /* ViewFullViewController.swift in Sources */,
 				8406D0E4233A348500035B9C /* NetworkService.swift in Sources */,

@@ -10,13 +10,30 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+ var sessionKey: String?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-            let defaults = UserDefaults.standard
-        let defaultValue = ["myKey" : ""]
-        defaults.register(defaults: defaultValue)
+          let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+          if launchedBefore  {
+              print("Not first launch.")
+            
+          } else {
+               let network = NetworkService()
+               network.request(searchTerm: "a=new_session") { (data, error) in
+               let product = self.decodeJSON(type: Session.self, from: data)
+               self.sessionKey = product?.data.session
+               print(self.sessionKey)
+               let defaults = UserDefaults.standard
+                 let defaultValue = ["myKey" : ""]
+                 defaults.register(defaults: defaultValue)
+                defaults.set(self.sessionKey, forKey: "myKey")
+                defaults.synchronize()
+                
+          }
+       UserDefaults.standard.set(true, forKey: "launchedBefore")
+                }
+        
         return true
     }
 
@@ -33,6 +50,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    //MARK: -- декод JSON
+    func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
+         let decoder = JSONDecoder()
+         guard let data = from else { return nil }
+         
+         do {
+             let objects = try decoder.decode(type.self, from: data)
+             return objects
+         } catch let jsonError {
+             print("Failed to decode JSON", jsonError)
+             return nil
+         }
+     }
 
 }
 
