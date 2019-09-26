@@ -34,8 +34,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
             //print("a=get_entries session=\(self.Session!)")
             //print(product?.data.first)
             for i in (product?.data.first)! {
-                //var kek = i.body
-               // kek.padding(toLength: 200, withPad: <#T##StringProtocol#>, startingAt: <#T##Int#>)
+                
                 self.myArray.append("body=\(i.body),da=\(i.da)")
             }
             
@@ -53,7 +52,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         myTableView.dataSource = self
         myTableView.delegate = self
-      
+        
         self.view.addSubview(myTableView)
         
     }
@@ -85,6 +84,7 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+    cell.textLabel?.numberOfLines = 0
     cell.textLabel!.text = "\(myArray[indexPath.row])"
     return cell
 }
