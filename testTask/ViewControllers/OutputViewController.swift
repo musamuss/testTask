@@ -11,7 +11,7 @@ import UIKit
 class OutputViewController: UIViewController {
     
     var toPass:String!{
-        return(UserDefaults.standard.object(forKey: "myKey") as! String)
+        return(UserDefaults.standard.object(forKey: "myKey") as? String ?? "no way")
     }
     
     override func viewDidLoad() {
