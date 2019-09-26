@@ -10,11 +10,7 @@ import UIKit
 
 class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-    private var myArray: NSArray = [] {
-        willSet{
-            
-        }
-    }
+    private var myArray = [String]()
     private var myTableView: UITableView!
     
     
@@ -24,7 +20,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
 //        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
 //         button.backgroundColor = .green
 //         button.setTitle("Test Button", for: .normal)
@@ -38,19 +34,26 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
             //print("a=get_entries session=\(self.Session!)")
             //print(product?.data.first)
             for i in (product?.data.first)! {
-                self.myArray.adding(i.body)
+                //var kek = i.body
+               // kek.padding(toLength: 200, withPad: <#T##StringProtocol#>, startingAt: <#T##Int#>)
+                self.myArray.append("body=\(i.body),da=\(i.da)")
             }
-            //print(product)
+            
+            self.myTableView.reloadData()
+            
+            print(self.myArray)
         }
-        print(myArray)
+       
 //MARK: - генерация tablView
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
+        
         myTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         myTableView.dataSource = self
         myTableView.delegate = self
+      
         self.view.addSubview(myTableView)
         
     }
@@ -85,6 +88,5 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.textLabel!.text = "\(myArray[indexPath.row])"
     return cell
 }
-    
-    
+
 }
