@@ -9,11 +9,9 @@
 import UIKit
 
 class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
-    
     private var myArray = [String]()
     private var myTableView: UITableView!
-    
-    
+    private let refreshControl = UIRefreshControl()
     var toPass:String!{
         return(UserDefaults.standard.object(forKey: "myKey") as? String ?? "no way")
     }
@@ -21,6 +19,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
 //        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
 //         button.backgroundColor = .green
 //         button.setTitle("Test Button", for: .normal)
@@ -31,15 +30,11 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         let network = NetworkService()
         network.request(searchTerm: "a=get_entries&session=\(toPass!)") { (data, error) in
             let product = self.decodeJSON(type: SessionModel.self, from: data)
-            //print("a=get_entries session=\(self.Session!)")
-            //print(product?.data.first)
             for i in (product?.data.first)! {
                 
-                self.myArray.append("body=\(i.body),da=\(i.da)")
+                self.myArray.append("da= \(i.da), body= \(i.body)")
             }
-            
             self.myTableView.reloadData()
-            
             print(self.myArray)
         }
        
@@ -52,12 +47,18 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         myTableView.dataSource = self
         myTableView.delegate = self
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData), for: .valueChanged)
+        myTableView.addSubview(refreshControl)
         
         self.view.addSubview(myTableView)
-        
     }
+   
     @objc func buttonAction(sender: UIButton!) {
         print(toPass)
+    }
+    @objc private func refreshWeatherData(_ sender: UIRefreshControl) {
+        myTableView.reloadData()
+        myTableView.refreshControl?.endRefreshing()
     }
   //MARK: -- декод JSON
     func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
@@ -76,17 +77,20 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("Num: \(indexPath.row)")
     print("Value: \(myArray[indexPath.row])")
-}
+    }
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return myArray.count
-}
+    }
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
-    cell.textLabel?.numberOfLines = 0
+    cell.textLabel?.numberOfLines = 6
     cell.textLabel!.text = "\(myArray[indexPath.row])"
     return cell
-}
-
+    }
+    
+   
+        
+    
 }

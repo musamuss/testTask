@@ -9,11 +9,15 @@
 import UIKit
 
 class AddViewController: UIViewController {
+    
     var UserSession:String!{
            return(UserDefaults.standard.object(forKey: "myKey") as! String)
        }
     var UserText:String = "heloooohelooooheloooohelooooheloooohelooooheloooohelooooheloooohelooooheloooohelooooheloooohelooooheloooo"
+    
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         view.backgroundColor = .yellow
         let network = NetworkService()
