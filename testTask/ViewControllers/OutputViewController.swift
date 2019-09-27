@@ -20,7 +20,16 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         view.backgroundColor = .white
         if Reachability.isConnectedToNetwork(){
-            print("Internet Connection Available!")
+          //MARK:- работа с сетью получение записей сессии
+            let network = NetworkService()
+            network.request(searchTerm: "a=get_entries&session=\(toPass!)") { (data, error) in
+                let product = self.decodeJSON(type: SessionModel.self, from: data)
+                for i in (product?.data.first)! {
+                    
+                    self.myArray.append("da= \(i.da), body= \(i.body)")
+                }
+                self.myTableView.reloadData()
+            }
         }else{
            let alert = UIAlertController(title: "Нет интренета", message: "Рекоментуем проверить соединение.", preferredStyle: .alert)
            alert.addAction(UIAlertAction(title: "Обновить данные", style: .default, handler: {action in
@@ -30,17 +39,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         }
 
         
-//MARK:- работа с сетью получение записей сессии
-        let network = NetworkService()
-        network.request(searchTerm: "a=get_entries&session=\(toPass!)") { (data, error) in
-            let product = self.decodeJSON(type: SessionModel.self, from: data)
-            for i in (product?.data.first)! {
-                
-                self.myArray.append("da= \(i.da), body= \(i.body)")
-            }
-            self.myTableView.reloadData()
-            //print(self.myArray)
-        }
+
        
 //MARK: - генерация tablView
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
