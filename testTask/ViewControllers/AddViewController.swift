@@ -17,7 +17,13 @@ class AddViewController: UIViewController {
     var myTextField: UITextView = UITextView(frame: CGRect(x: 0, y: 0, width: 400.00, height: 600.00));
     
     override func viewDidLoad() {
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+           let alert = UIAlertController(title: "Нет интренета", message: "Рекоментуем проверить соединение.", preferredStyle: .alert)
+           alert.addAction(UIAlertAction(title: "Обновить данные", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
         super.viewDidLoad()
         view.backgroundColor = .yellow
         

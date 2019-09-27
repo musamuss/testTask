@@ -7,32 +7,50 @@
 //
 
 import UIKit
-
+@IBDesignable
 class ViewFullViewController: UIViewController {
-    var label = UILabel()
-    var receivedString = ""
+    
+    @IBOutlet weak var label: UILabel!
+    var thePropertyYouWantToSet = String()
     override func viewDidLoad() {
         super.viewDidLoad()
-         let label = UILabel()
-        label.backgroundColor = .green
-         label.text = receivedString
-        let font = UIFont.systemFont(ofSize: 17.0)
-         label.font = font
+        label.text = thePropertyYouWantToSet
+        label.text?.removeFirst(16)
          label.numberOfLines = 0;
-        label.frame = CGRect(x: 200, y: 200, width: 100, height: 100)
-        self.view.addSubview(label)
-        view.backgroundColor  = .gray
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+}
+extension NSAttributedString {
+  func height(withConstrainedWidth width: CGFloat) -> CGFloat {
+    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+    let boundingBox = boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
 
+    return ceil(boundingBox.height)
+  }
+
+  func width(withConstrainedHeight height: CGFloat) -> CGFloat {
+    let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+    let boundingBox = boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
+
+    return ceil(boundingBox.width)
+  }
+}
+
+
+extension String {
+  func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+    let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+    return ceil(boundingBox.height)
+  }
+
+  func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+    let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+    let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+    return ceil(boundingBox.width)
+  }
 }

@@ -22,5 +22,37 @@
             </objects>
             <point key="canvasLocation" x="132" y="81"/>
         </scene>
+        <!--View Full View Controller-->
+        <scene sceneID="pjv-b1-zNI">
+            <objects>
+                <viewController storyboardIdentifier="kek" id="WOm-JJ-goR" customClass="ViewFullViewController" customModule="testTask" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fiA-xA-2Un">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfe-Au-y3N">
+                                <rect key="frame" x="20" y="44" width="374" height="286"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Xfe-Au-y3N" firstAttribute="top" secondItem="QE1-vQ-5bs" secondAttribute="top" id="Fe9-5m-Cma"/>
+                            <constraint firstItem="Xfe-Au-y3N" firstAttribute="leading" secondItem="fiA-xA-2Un" secondAttribute="leadingMargin" id="GUx-32-OcZ"/>
+                            <constraint firstItem="QE1-vQ-5bs" firstAttribute="bottom" secondItem="Xfe-Au-y3N" secondAttribute="bottom" constant="532" id="Wo4-on-7u8"/>
+                            <constraint firstItem="Xfe-Au-y3N" firstAttribute="trailing" secondItem="fiA-xA-2Un" secondAttribute="trailingMargin" id="dxb-M4-X8u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QE1-vQ-5bs"/>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="Xfe-Au-y3N" id="EZg-7i-nji"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZw-uh-msa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1000.0000000000001" y="79.6875"/>
+        </scene>
     </scenes>
 </document>

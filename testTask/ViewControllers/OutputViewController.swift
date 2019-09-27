@@ -19,7 +19,15 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+           let alert = UIAlertController(title: "Нет интренета", message: "Рекоментуем проверить соединение.", preferredStyle: .alert)
+           alert.addAction(UIAlertAction(title: "Обновить данные", style: .default, handler: {action in
+               self.myTableView.reloadData()
+               }))
+            self.present(alert, animated: true)
+        }
 
         
 //MARK:- работа с сетью получение записей сессии
@@ -78,11 +86,13 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     }
 //MARK:- функции настроки tableView
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  //  let tableRow = indexPath.row
-     var controllerToPresent: UIViewController
-    controllerToPresent = ViewFullViewController()
-    self.navigationController?.pushViewController(controllerToPresent, animated: true)
+    let tableRow = myArray[indexPath.row]
+     let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewController(withIdentifier: "kek") as! ViewFullViewController
+    vc.thePropertyYouWantToSet = tableRow
+    self.navigationController?.pushViewController(vc, animated: true)
     }
+    
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return myArray.count
