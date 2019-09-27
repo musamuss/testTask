@@ -9,10 +9,18 @@
 import UIKit
 
 class ViewFullViewController: UIViewController {
-
+    var label = UILabel()
+    var receivedString = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         let label = UILabel()
+        label.backgroundColor = .green
+         label.text = receivedString
+        let font = UIFont.systemFont(ofSize: 17.0)
+         label.font = font
+         label.numberOfLines = 0;
+        label.frame = CGRect(x: 200, y: 200, width: 100, height: 100)
+        self.view.addSubview(label)
         view.backgroundColor  = .gray
     }
     

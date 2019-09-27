@@ -20,11 +20,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         view.backgroundColor = .white
         
-//        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-//         button.backgroundColor = .green
-//         button.setTitle("Test Button", for: .normal)
-//         self.view.addSubview(button)
-//          button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
         
 //MARK:- работа с сетью получение записей сессии
         let network = NetworkService()
@@ -35,7 +31,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
                 self.myArray.append("da= \(i.da), body= \(i.body)")
             }
             self.myTableView.reloadData()
-            print(self.myArray)
+            //print(self.myArray)
         }
        
 //MARK: - генерация tablView
@@ -53,12 +49,19 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         self.view.addSubview(myTableView)
     }
    
-    @objc func buttonAction(sender: UIButton!) {
-        print(toPass)
-    }
+  
     @objc func refresh(_ refreshControl: UIRefreshControl) {
-        myTableView.reloadData()
-        myTableView.refreshControl?.endRefreshing()
+         let network = NetworkService()
+        network.request(searchTerm: "a=get_entries&session=\(toPass!)") { (data, error) in
+            let product = self.decodeJSON(type: SessionModel.self, from: data)
+            self.myArray.removeAll()
+        for i in (product?.data.first)! {
+            
+            self.myArray.append("da= \(i.da), body= \(i.body)")
+        }
+            self.myTableView.reloadData()
+            self.myTableView.refreshControl?.endRefreshing()
+        }
     }
   //MARK: -- декод JSON
     func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
@@ -75,8 +78,10 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     }
 //MARK:- функции настроки tableView
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("Num: \(indexPath.row)")
-    print("Value: \(myArray[indexPath.row])")
+  //  let tableRow = indexPath.row
+     var controllerToPresent: UIViewController
+    controllerToPresent = ViewFullViewController()
+    self.navigationController?.pushViewController(controllerToPresent, animated: true)
     }
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
