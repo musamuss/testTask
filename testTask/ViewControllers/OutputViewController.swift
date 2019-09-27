@@ -47,8 +47,8 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         myTableView.dataSource = self
         myTableView.delegate = self
-        refreshControl.addTarget(self, action: #selector(refreshWeatherData), for: .valueChanged)
-        myTableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        myTableView.refreshControl = refreshControl
         
         self.view.addSubview(myTableView)
     }
@@ -56,7 +56,7 @@ class OutputViewController: UIViewController,UITableViewDelegate, UITableViewDat
     @objc func buttonAction(sender: UIButton!) {
         print(toPass)
     }
-    @objc private func refreshWeatherData(_ sender: UIRefreshControl) {
+    @objc func refresh(_ refreshControl: UIRefreshControl) {
         myTableView.reloadData()
         myTableView.refreshControl?.endRefreshing()
     }
